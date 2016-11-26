@@ -1,7 +1,36 @@
 $(function () { 
     
     $('#createUserSubmit').click( sendData );
+	$('#getMe').click( getData );
 
+	
+	function getData () {
+            $.ajax({
+            type: 'get',
+            url: 'http://92.53.104.115:3000/api/v1/users',
+            
+            beforeSend: function ( jqXHR, settings ) {
+               
+                console.log('Я выполняюсь перед отправкой ajax-запроса!');
+                // return false; //если в этом методе вернуть false, то ajax-запрос не выполнится
+            },
+            error: function ( jqXHR, textStatus, errorThrown ) {
+               
+                console.log('Я выполняюсь в случае ошибки!');
+                // console.log('Время превышено');
+            },
+            success: function ( data, textStatus, errorThrown ){
+              
+                console.log(data);
+            },
+            complete: function ( jqXHR, textStatus ) {
+               
+                console.log('Мне всё равно с каким статусом завершился ajax-запрос, я выполнюсь в любом случае!');
+            }
+        });
+
+        return false;
+    }
 
     function sendData () {
         var data         = {};
@@ -24,9 +53,6 @@ $(function () {
                 console.log('Я выполняюсь перед отправкой ajax-запроса!');
                 // return false; //если в этом методе вернуть false, то ajax-запрос не выполнится
             },
-			type: 'GET',
-			url: 'http://92.53.104.115:3000/api/v1/users',
-			
             error: function ( jqXHR, textStatus, errorThrown ) {
                 console.log(jqXHR);
                 console.log(textStatus);
@@ -53,28 +79,7 @@ $(function () {
 
         return false;
     }
-	    function getData () {
 
-        $.ajax({            
-			type: 'GET',
-			url: 'http://92.53.104.115:3000/api/v1/users',
-			beforeSend: function ( jqXHR, settings ) {
-				console.log('Я выполняюсь перед отправкой ajax-запроса!');
-			}
-			error: function ( jqXHR, textStatus, errorThrown ) {
-                console.log('Я выполняюсь в случае ошибки!');
-                
-            },
-			success: function ( data, textStatus, errorThrown ){
-                console.log('Пользователи получены');
-				console.log('Пользователи =', data);
-            },
-			complete: function ( jqXHR, textStatus ) {
-                console.log('Мне всё равно с каким статусом завершился ajax-запрос, я выполнюсь в любом случае!');
-            }
-		});
-
-        return false;
 });
 
 
