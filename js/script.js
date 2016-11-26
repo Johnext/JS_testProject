@@ -22,6 +22,12 @@ $(function () {
             success: function ( data, textStatus, errorThrown ){
               
                 console.log(data);
+				
+				var usersList = $('#usersList');
+				data.forEach(function (user) {
+					usersList.append('<li class="list-group-item">' + user.name + '</li>')
+				});
+				
             },
             complete: function ( jqXHR, textStatus ) {
                
